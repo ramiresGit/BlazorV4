@@ -15,6 +15,12 @@ namespace BlazorV4.Client.Pages
         [Parameter]
         public string PathToFile { get; set; }
 
-        public string ImageSrc => $"GalleryImage/GetGalleryImage{PathToFile}";
+        public string ImageSrc => $"GalleryImage/GetGalleryImage?path={PathToFile}";
+
+        protected override async Task OnInitializedAsync()
+        {
+            //ImageSrc = $"GalleryImage/GetGalleryImage?={PathToFile}";
+        }
+
     }
 }

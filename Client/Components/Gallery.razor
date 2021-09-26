@@ -1,0 +1,39 @@
+﻿@using BlazorV4.Client.Pages;
+@inject HttpClient Http
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">BlazorV4</a>
+    <button class="navbar-toggler">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+<style>
+
+   
+</style>
+
+    <div class="scrollbox">
+        @if (Files == null)
+        {
+            <div class="nav-item px-3 scrollitem">
+                <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        }
+        else
+        {
+            @foreach (string file in Files.Take(20))
+            {
+                <div class="nav-item px-3 scrollitem">
+                    <GalleryImage PathToFile="@file" />
+                </div>
+            }
+
+        }
+    </div>
+
+
+@code {
+
+}

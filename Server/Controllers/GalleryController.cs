@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 namespace BlazorV4.Server.Controllers
 {
     [ApiController]
+    [Route("Gallery")]
     public class GalleryController : ControllerBase
     {
         [HttpGet("GetFiles")]
-        public List<string> GetFiles([FromQuery] string path)
+        public List<string> GetFiles()
         {
-            return Directory.EnumerateFiles(path).ToList();
+            List<string> paths = Directory.EnumerateFiles(@"D:\Pics").ToList();
+            return paths;
         }
     }
 }
