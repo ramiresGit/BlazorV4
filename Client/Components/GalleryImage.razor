@@ -1,7 +1,12 @@
-﻿<div class="card" style="width: 18rem;">
-    <img class="img-thumbnail" src="@ImageSrc" alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">Название карточки</h5>
-    </div>
-</div>
+﻿@inject HttpClient Http; 
+
+<MudCard>
+    <MudCardContent>
+    <img width="200" src="@ImageSrc"/>
+    </MudCardContent>
+    <MudCardContent>
+        <MudText Typo="Typo.h5">@FileName</MudText>
+    </MudCardContent>
+</MudCard>
+
 

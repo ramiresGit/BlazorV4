@@ -1,7 +1,61 @@
 ﻿@page "/"
+@using BlazorV4.Client.Components
+ 
+<MudContainer >
+    <MudFab @ref="@btn" Color="Color.Primary" Icon="@icon" Size="Size.Large" IconSize="Size.Small" Class="ma-2" OnClick="@OnToggleLiveView" />
+    <LiveView @ref="@LiveViewComponent"/>
+</MudContainer>
 
-<h1>Changed</h1>
 
-Welcome to your new app.
+@code
+{
+    /// <summary>
+    /// Ссылка на компонент LiveView
+    /// </summary>
+    LiveView LiveViewComponent;
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    /// <summary>
+    /// Ссылка на кнопку переключения LiveView
+    /// </summary>
+    MudFab btn;
+
+    /// <summary>
+    /// Значок (плей/стоп)
+    /// </summary>
+    string icon = Icons.Material.Filled.PlayCircle;
+
+    /// <summary>
+    /// Флаг включения LiveView
+    /// </summary>
+    public bool LiveViewEnabled { get; set; } = false;
+
+    /// <summary>
+    /// Метод переключения LiveView
+    /// </summary>
+    public void OnToggleLiveView()
+    {
+        LiveViewEnabled = !LiveViewEnabled;
+
+        if (LiveViewEnabled)
+        {
+            LiveViewComponent.TakingLiveView = true;
+            icon = Icons.Material.Filled.StopCircle;
+            LiveViewComponent?.StartTakinLiveView();
+        }
+        else
+        {
+            LiveViewEnabled = false;
+            icon = Icons.Material.Filled.PlayCircle;
+            StopTakingLiveView();
+        }
+    }
+
+    /// <summary>
+    /// Выключить liveview
+    /// </summary>
+    private void StopTakingLiveView()
+    {
+        LiveViewComponent.TakingLiveView = false;
+    }
+
+}

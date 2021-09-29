@@ -1,0 +1,54 @@
+﻿@inject HttpClient Http;
+@using System.IO; 
+@using System.Linq; 
+
+    @if (ImageUrl == null)
+        
+    {  
+      <MudPaper Style="@($"background:{Colors.Shades.Transparent}; color:{Colors.Shades.White}; margin:0;")" Elevation="0">Toggle button to enable live view</MudPaper> 
+    }
+    else
+    {   <MudCard Style="@($"background:{Colors.Shades.Transparent}; color:{Colors.Shades.Transparent}")" Elevation="0">
+            <MudContainer Style="@("min-height: 50vh")">
+                <img src="@ImageUrl" style="min-height:65vh" />
+            </MudContainer>
+        </MudCard>
+    }
+
+
+@code 
+{
+    /// <summary>
+    ///  Путь к изоображению
+    /// </summary>
+    [Parameter]
+    public string Path { get; set; }
+
+    /// <summary>
+    /// Action Result изображение с контроллера  
+    /// </summary>
+    public string ImageUrl { get; set; }
+
+    /// <summary>
+    /// Выполняется ли получение LiveView
+    /// </summary>
+    public bool TakingLiveView { get; set; } = false;
+
+
+    public async void StartTakinLiveView()
+    {
+        while (TakingLiveView)
+        {
+            ImageUrl = $"LiveView/GetLiveView?{DateTime.Now.Ticks}";
+            await Task.Delay(50);
+            StateHasChanged();
+        }
+
+    }
+
+    public void StopTakingLiveView()
+    {
+        TakingLiveView = false;
+    }
+
+}

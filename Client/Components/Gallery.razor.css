@@ -10,6 +10,7 @@
 .navbar-brand {
     font-size: 1.1rem;
 }
+
 .scrollComponent {
     overflow-y: scroll;
     width: 300px;
@@ -17,18 +18,10 @@
 }
 
 .mainGallery {
-    width: fit-content;
-}
-
-.scrollbox {
     overflow: auto;
-    width: fit-content;
-    max-height: 100vh;
-    margin: 30px auto;
-    background: linear-gradient(white 30%, rgba(255,255,255,0)), linear-gradient(rgba(255,255,255,0), white 70%) 0 100%, radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.2), rgba(0,0,0,0)), radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.2), rgba(0,0,0,0)) 0 100%;
-    background-repeat: no-repeat;
-    background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
-    background-attachment: local, local, scroll, scroll;
+    width: 15vw;
+    max-height: 85vh;
+    background-color: #757575;
 }
 
 .scrollitem {

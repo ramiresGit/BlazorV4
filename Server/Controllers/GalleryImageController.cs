@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BlazorV4.Shared;
+using Microsoft.AspNetCore.Mvc;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,12 +30,10 @@ namespace BlazorV4.Server.Controllers
             return File(bytes, "image/jpeg");
         }
 
-        [HttpGet("GetImageInfo")]
-        public string GetImageInfo([FromQuery] string path)
+        [HttpGet("GetImageName")]
+        public string GetImageName([FromQuery] string path)
         {
-            FileInfo fileInfo = new FileInfo(path);
-
-            return fileInfo.Name;
+            return new FileInfo(path).Name;
         }
 
     }

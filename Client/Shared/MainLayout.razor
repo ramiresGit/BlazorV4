@@ -1,18 +1,28 @@
 ﻿@inherits LayoutComponentBase
-@using BlazorV4.Client.Components 
+@using BlazorV4.Client.Components
+@using MudBlazor;
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+        <MudLayout>
+            <MudTabs  Style="@($"background:{Colors.Grey.Darken1}; color:{Colors.Shades.White}; max-height:100vh;")" >
+                <MudTabPanel Text="Scanning" Style="@($"background:{Colors.Grey.Darken1}; color:{Colors.Shades.White}")" >
+                    <nav class="mainLayout">
+                        <TopBar />
+                    </nav>
+                    <div class="page" style="max-width:100vh;">
+                        <Gallery />
+                        <div class="content px-4">
+                            <MudMainContent>
+                                @Body
+                            </MudMainContent>
+                        </div>
+                    </div>
 
-<div class="page">
-    <div class="sidebar">
-        <Gallery/>
-    </div>
+                </MudTabPanel>
+            </MudTabs>
+        </MudLayout>
 
-    <div class="main">
-        <div class="top-row px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-        </div>
 
-        <div class="content px-4">
-            @Body
-        </div>
-    </div>
-</div>
+
+

@@ -1,8 +1,22 @@
 ﻿body {
 }
-
 .mainLayout {
     width: 100vw;
     height: 10vh;
     background: RGB(133,133,133);
+    display: inline-block;
+}
+.baseBtn{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.leftBtnGroup {
+    margin-left: 30px;
+    margin-top: 15px;
+    float: left;
+}
+.rightBtnGroup {
+    margin-right: 30px;
+    margin-top: 15px;
+    float: right;
 }

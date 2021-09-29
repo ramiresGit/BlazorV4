@@ -1,18 +1,7 @@
 ﻿@using BlazorV4.Client.Pages;
 @inject HttpClient Http
 
-<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">BlazorV4</a>
-    <button class="navbar-toggler">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
-<style>
-
-   
-</style>
-
-    <div class="scrollbox">
+    <div class="mainGallery">
         @if (Files == null)
         {
             <div class="nav-item px-3 scrollitem">
@@ -29,7 +18,15 @@
                     <GalleryImage PathToFile="@file" />
                 </div>
             }
-
+        <MudContainer Style="@($"position:absolute; bottom:0;  background:{Colors.Grey.Darken1};")">
+            <MudToolBar>
+                <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Class="mr-5" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Add" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Edit" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Remove" Color="Color.Inherit" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Settings" Color="Color.Inherit" />
+            </MudToolBar>
+        </MudContainer>
         }
     </div>
 

@@ -13,5 +13,11 @@ namespace BlazorV4.Client.Components
         {
             Files = await Http.GetFromJsonAsync<List<string>>("Gallery/GetFiles");
         }
+
+        protected void SetSelectedItem()
+        {
+
+        }
+
     }
 }
