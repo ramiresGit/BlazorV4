@@ -16,10 +16,10 @@
     }
     else
     {
-        @foreach(int id in FilesCount)
+        @foreach(var id in FilesCount)
         {
             <div class="nav-item px-3 scrollitem">
-                <GalleryImage GalleryImageModel="@GetModelFromDb(id).Result"  />
+                <GalleryImage GalleryImageModel="@id"  />
             </div>
         }
     }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 
 namespace BlazorV4.Server.Controllers
 {
@@ -16,7 +17,11 @@ namespace BlazorV4.Server.Controllers
     {
         private static GalleryImageContext context;
 
-
+        /// <summary>
+        /// Получить Model по Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("GetGalleryImageModel")]
         public GalleryImageModel GetGalleryImageModel([FromQuery] int id)
         {
@@ -24,8 +29,33 @@ namespace BlazorV4.Server.Controllers
                 context = new GalleryImageContext();
             GalleryImageEntity entity = context.GalleryImageEntities.Find(id);
 
+            if(entity == null) 
+                return null;    
+
             GalleryImageModel model = new GalleryImageModel()
             {
+                Name = entity.ImageName,
+                PathToFileOriginal = entity.PathToOriginal,
+                ThumbnailBase64 = entity.ThumbnailBase64
+            };
+
+            return model;
+        }
+
+        [HttpGet("GetGalleryImageModelByHash")]
+        public GalleryImageModel GetGalleryImageModelByHash(string hash)
+        {
+
+            if (context == null)
+                context = new GalleryImageContext();
+            GalleryImageEntity entity = context.GalleryImageEntities.Find(hash);
+
+            if (entity == null)
+                return null;
+
+            GalleryImageModel model = new GalleryImageModel()
+            {
+                Hash = hash,
                 Name = entity.ImageName,
                 PathToFileOriginal = entity.PathToOriginal,
                 ThumbnailBase64 = entity.ThumbnailBase64
@@ -38,8 +68,8 @@ namespace BlazorV4.Server.Controllers
         /// Получить все записи из таблицы GalleryImageEntity
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetImagesIds")]
-        public List<int> GetImagesIds()
+        [HttpGet("GetImagesModels")]
+        public List<GalleryImageEntity> GetImagesModels()
         {
             try
             {
@@ -49,15 +79,15 @@ namespace BlazorV4.Server.Controllers
                 var result = context.Set<GalleryImageEntity>();
 
                 var toReturn = result == null || result.CountAsync().Result == 0
-                    ? new List<int>()
-                    : result.Select(res => res.ImageID).ToList();
+                    ? null
+                    : result.Select(res => res).ToList();
 
                 return toReturn;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return new List<int>();
+                return null;
 
             }
         }
@@ -79,14 +109,19 @@ namespace BlazorV4.Server.Controllers
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
                         file.CopyTo(stream);
+
+                      
+                        stream.Position = 0;
+
                         GalleryImageEntity entity = new GalleryImageEntity(stream, fullPath);
                         if (context == null)
                             context = new GalleryImageContext();
 
                         context.GalleryImageEntities.Add(entity);
                         context.SaveChanges();
+                    
+                    return  Ok();
                     }
-                    return Ok();
                 }
                 else
                 {

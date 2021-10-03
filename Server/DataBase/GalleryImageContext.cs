@@ -1,4 +1,5 @@
 ﻿using BlazorV4.Server.DataBase;
+using BlazorV4.Shared.Project;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorV4.Shared
@@ -24,12 +25,11 @@ namespace BlazorV4.Shared
                 _created = true;
                 Database.EnsureCreated();
                 Database.Migrate();
-
             }
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@$"Data Source=C:\Users\Home\Desktop\VSFiles\DB\{_dbName};");
+            optionsBuilder.UseSqlite(@$"Data Source={BaseProjectSettings.ProjectPath}{_dbName};");
         }
 
         public void UpdateDB(GalleryImageEntity entity)

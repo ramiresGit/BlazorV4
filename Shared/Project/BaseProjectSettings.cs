@@ -7,7 +7,7 @@ namespace BlazorV4.Shared.Project
 {
     public static class BaseProjectSettings
     {
-        public static string ProjectPath => @"C:\Users\Home\Desktop\VSFiles\Project";
+        public static string ProjectPath => @"C:\Users\Home\Desktop\VSFiles\Project\";
 
     }
 }

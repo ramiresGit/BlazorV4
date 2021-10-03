@@ -48,6 +48,12 @@ namespace BlazorV4.Shared
         /// </summary>
         public int PixelHeight { get; set; }
 
+        /// <summary>
+        /// Хэш сумма файла изображения
+        /// </summary>
+        public string Hash { get; set; }
+
+
         private static HttpClient client = new HttpClient();
 
         public GalleryImageModel(int Id)
