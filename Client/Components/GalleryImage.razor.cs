@@ -1,6 +1,8 @@
 ﻿using BlazorV4.Shared;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
+using System.Net.Http.Json;
+using System.Threading;
 
 namespace BlazorV4.Client.Components
 {
@@ -20,15 +22,17 @@ namespace BlazorV4.Client.Components
         /// <summary>
         /// Источник изображения
         /// </summary>
-        public string ImageSrc => $"GalleryImage/GetGalleryImage?path={PathToFile}";
+        public string ImageSrc => GalleryImageModel?.ThumbnailBase64;
 
         public string FileName { get; set; }
 
-        public GalleryImageModel galleryImageModel;
+        [Parameter]
+        public GalleryImageModel GalleryImageModel { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        public GalleryImage()
         {
-            FileName = await Http.GetStringAsync($"GalleryImage/GetImageName?path={PathToFile}");
+
+           
         }
 
     }

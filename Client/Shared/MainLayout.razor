@@ -5,20 +5,31 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
         <MudLayout>
-            <MudTabs  Style="@($"background:{Colors.Grey.Darken1}; color:{Colors.Shades.White}; max-height:100vh;")" >
+            <MudTabs Style="@($"background:{Colors.Grey.Darken1}; color:{Colors.Shades.White}; max-height:100vh;")" >
                 <MudTabPanel Text="Scanning" Style="@($"background:{Colors.Grey.Darken1}; color:{Colors.Shades.White}")" >
-                    <nav class="mainLayout">
-                        <TopBar />
-                    </nav>
-                    <div class="page" style="max-width:100vh;">
-                        <Gallery />
-                        <div class="content px-4">
+                    <MudGrid>
+                        
+                        <MudItem  xs="12">
+                            <MudPaper Elevation="10">
+                                <TopBar />
+                            </MudPaper>
+                            
+                        </MudItem>
+
+                        <MudItem xs="2" Style="@($"background:{Colors.Grey.Darken2}; color:{Colors.Shades.White}")" >
+                            <MudPaper >
+                                <Gallery />
+                            </MudPaper>
+                          
+                        </MudItem>
+
+                        <MudItem xs="10" Style="@($"background:{Colors.Grey.Darken2}; color:{Colors.Shades.White}")" >
                             <MudMainContent>
                                 @Body
                             </MudMainContent>
-                        </div>
-                    </div>
-
+                        </MudItem>
+                        
+                    </MudGrid>
                 </MudTabPanel>
             </MudTabs>
         </MudLayout>

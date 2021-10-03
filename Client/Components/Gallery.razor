@@ -1,36 +1,43 @@
 ﻿@using BlazorV4.Client.Pages;
+@using System.Text.Json
+@using System.Text.Json.Serialization;
+@using BlazorV4.Shared;
 @inject HttpClient Http
+@inject ISnackbar Snackbar
 
-    <div class="mainGallery">
-        @if (Files == null)
+<MudPaper Elevation="5" Style="@("overflow: auto; max-height: 78vh;  background-color: #757575;")">
+    @if (FilesCount == null || FilesCount.Count == 0)
+    {
+        <div class="nav-item px-3 scrollitem">
+            <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    }
+    else
+    {
+        @foreach(int id in FilesCount)
         {
             <div class="nav-item px-3 scrollitem">
-                <div class="spinner-grow" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
+                <GalleryImage GalleryImageModel="@GetModelFromDb(id).Result"  />
             </div>
         }
-        else
-        {
-            @foreach (string file in Files.Take(20))
-            {
-                <div class="nav-item px-3 scrollitem">
-                    <GalleryImage PathToFile="@file" />
-                </div>
-            }
-        <MudContainer Style="@($"position:absolute; bottom:0;  background:{Colors.Grey.Darken1};")">
-            <MudToolBar>
-                <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Class="mr-5" />
-                <MudIconButton Icon="@Icons.Material.Outlined.Add" />
-                <MudIconButton Icon="@Icons.Material.Outlined.Edit" />
-                <MudIconButton Icon="@Icons.Material.Outlined.Remove" Color="Color.Inherit" />
-                <MudIconButton Icon="@Icons.Material.Outlined.Settings" Color="Color.Inherit" />
-            </MudToolBar>
-        </MudContainer>
-        }
-    </div>
+    }
 
+</MudPaper>
 
+<MudPaper Elevation="0" Outlined="true" Square="true" Style="@("background: #757575")">
+
+    <InputFile id="fileInput" OnChange="UploadFiles" hidden multiple accept=".jpg, .jpeg, .png" />
+
+    <MudIconButton HtmlTag="label" Icon="@Icons.Material.Filled.AddCircle" Size="Size.Medium" for="fileInput"></MudIconButton>
+    <MudIconButton OnClick="@CreateDB" Icon="@Icons.Material.Filled.FolderOpen" Size="Size.Medium"></MudIconButton>
+    <MudIconButton Icon="@Icons.Material.Filled.DeleteForever" Size="Size.Medium"></MudIconButton>
+    <MudIconButton Icon="@Icons.Material.Filled.Repeat" Size="Size.Medium"></MudIconButton>
+    <MudIconButton Icon="@Icons.Material.Filled.FileUpload" Size="Size.Medium"></MudIconButton>
+    <MudButton>Two</MudButton>
+    <MudButton>Three</MudButton>
+</MudPaper>
 @code {
 
 }
